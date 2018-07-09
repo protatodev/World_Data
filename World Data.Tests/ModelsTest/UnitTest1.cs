@@ -20,14 +20,15 @@ namespace World_Data.Tests
         }
 
         [TestMethod]
-        public void GetAll_DbStartsEmpty_0()
+        public void FindCountryByName_ReturnsMatchingObject()
         {
             //Arrange
             //Act
-            //int result = ListMaker.GetAll().Count;
+            string countryName = "Aruba";
+            Country country = Country.FindCountryByName(countryName);
 
             //Assert
-            //Assert.AreEqual(0, result);
+            Assert.AreEqual(country.GetName(), countryName);
         }
     }
 }

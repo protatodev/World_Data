@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using World_Data;
 
 namespace World_Data.Models
 {
@@ -29,30 +31,68 @@ namespace World_Data.Models
         {
             return name;
         }
-
         public string GetContinent()
         {
             return continent;
         }
-
         public string GetCountryCode()
         {
             return code;
         }
-
         public long GetPopulation()
         {
             return population;
         }
-
         public double GetGNP()
         {
             return gnp;
         }
-
         public double GetSurfaceArea()
         {
             return surfaceArea;
+        }
+
+        public static Country FindCountryByName(string name)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM `country` WHERE name = @thisName;";
+
+            MySqlParameter thisName = new MySqlParameter();
+            thisName.ParameterName = "@thisName";
+            thisName.Value = name;
+            cmd.Parameters.Add(thisName);
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            string countryName = "";
+            string continentName = "";
+            string countryCode = "";
+            long pop = 0;
+            double revenue = 0.0;
+            double area = 0.0;
+
+            while(rdr.Read())
+            {
+                countryName = rdr.GetString(1);
+                continentName = rdr.GetString(2);
+                countryCode = rdr.GetString(0);
+                pop = (long) rdr.GetInt32(6);
+                revenue = (double) rdr.GetFloat(8);
+                area = (double) rdr.GetFloat(4);
+            }
+
+            Country foundCountry = new Country(countryName, continentName, countryCode, pop, revenue, area);
+
+            conn.Close();
+            if(conn != null)
+            {
+                conn.Dispose();
+            }
+
+            return foundCountry;
         }
     }
 }

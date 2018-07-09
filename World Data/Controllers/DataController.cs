@@ -14,5 +14,19 @@ namespace World_Data.Controllers
             return View();
         }
 
+        [HttpGet("/results")]
+        public ActionResult Results()
+        {
+            return View();
+        }
+
+        [HttpPost("/results")]
+        public ActionResult ResultsPost()
+        {
+            string country = Request.Form["name"];
+            Country newCountry = Country.FindCountryByName(country);
+            return View("Results", newCountry);
+        }
+
     }
 }
