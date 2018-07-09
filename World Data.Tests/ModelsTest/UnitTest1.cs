@@ -16,7 +16,7 @@ namespace World_Data.Tests
 
         public World_DataTest()
         {
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=todo_test;";
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=world_test;";
         }
 
         [TestMethod]

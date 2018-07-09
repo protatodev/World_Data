@@ -8,8 +8,8 @@ namespace World_Data.Controllers
 {
     public class DataController : Controller
     {
-        [HttpGet("/")]
-        public ActionResult Index()
+        [HttpGet("/form")]
+        public ActionResult Form()
         {
             return View();
         }
