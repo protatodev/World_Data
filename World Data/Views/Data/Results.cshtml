@@ -9,15 +9,43 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-12">
-        <h3>@Model.GetName()</h3>
-        <ul>
-            <li>Continent: @Model.GetContinent()</li>
-            <li>Country Code: @Model.GetCountryCode()</li>
-            <li>Population: @Model.GetPopulation()</li>
-            <li>GNP: @Model.GetGNP()</li>
-            <li>Surface Area: @Model.GetSurfaceArea()</li>
-        </ul>
-    </div>
-</div>
+@{
+    if (Model.GetName() != "")
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="/form" type="button" class="btn btn-primary">Search Again</a>
+                <a href="/" type="button" class="btn btn-primary">Return to Homepage</a>
+                <hr />
+                <h3>@Model.GetName()</h3>
+                <ul>
+                    <li>Continent: @Model.GetContinent()</li>
+                    <li>Country Code: @Model.GetCountryCode()</li>
+                    <li>Population: @Model.GetPopulation()</li>
+                    <li>GNP: @Model.GetGNP()</li>
+                    <li>Surface Area: @Model.GetSurfaceArea()</li>
+                    <li><strong>Cities:</strong></li>
+                    <ul>
+                        @{ 
+                            foreach(var city in Model.ListCities())
+                            {
+                                <li>@city.GetName()</li>
+                            }
+                        }
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>No results were found!</h3>
+                <p>Please try again..</p>
+                <a href="/form" type="button" class="btn btn-primary">Try Again</a>
+                <a href="/" type="button" class="btn btn-primary">Return to Homepage</a>
+            </div>
+        </div>
+    }
+}

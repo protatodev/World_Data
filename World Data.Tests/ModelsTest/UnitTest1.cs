@@ -24,11 +24,12 @@ namespace World_Data.Tests
         {
             //Arrange
             //Act
-            string countryName = "Aruba";
+            string countryName = "Argentina";
             Country country = Country.FindCountryByName(countryName);
 
             //Assert
-            Assert.AreEqual(country.GetName(), countryName);
+            //Assert.AreEqual(country.GetName(), "Logos");
+            Assert.AreEqual(country.GetContinent(), "South");
         }
     }
 }

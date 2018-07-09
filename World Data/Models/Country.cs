@@ -52,7 +52,17 @@ namespace World_Data.Models
             return surfaceArea;
         }
 
-        public static Country FindCountryByName(string name)
+        public void PopulateCities()
+        {
+            cities = City.FindCities(code);
+        }
+
+        public List<City> ListCities()
+        {
+            return cities;
+        }
+
+        public static Country FindCountryByName(string cName)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -62,7 +72,7 @@ namespace World_Data.Models
 
             MySqlParameter thisName = new MySqlParameter();
             thisName.ParameterName = "@thisName";
-            thisName.Value = name;
+            thisName.Value = cName;
             cmd.Parameters.Add(thisName);
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -79,12 +89,13 @@ namespace World_Data.Models
                 countryName = rdr.GetString(1);
                 continentName = rdr.GetString(2);
                 countryCode = rdr.GetString(0);
-                pop = (long) rdr.GetInt32(6);
-                revenue = (double) rdr.GetFloat(8);
-                area = (double) rdr.GetFloat(4);
+                pop = (long)rdr.GetInt32(6);
+                revenue = (double)rdr.GetFloat(8);
+                area = (double)rdr.GetFloat(4);
             }
 
             Country foundCountry = new Country(countryName, continentName, countryCode, pop, revenue, area);
+            foundCountry.PopulateCities();
 
             conn.Close();
             if(conn != null)
