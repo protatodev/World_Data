@@ -94,5 +94,45 @@ namespace World_Data.Models
 
             return foundCountry;
         }
+
+        public static List<Country> DisplayAllCountries()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM `country`;";
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            string countryName = "";
+            string continentName = "";
+            string countryCode = "";
+            long pop = 0;
+            double revenue = 0.0;
+            double area = 0.0;
+            List<Country> countryList = new List<Country>() { };
+
+            while (rdr.Read())
+            {
+                countryName = rdr.GetString(1);
+                continentName = rdr.GetString(2);
+                countryCode = rdr.GetString(0);
+                pop = (long)rdr.GetInt32(6);
+                revenue = (double)rdr.GetFloat(8);
+                area = (double)rdr.GetFloat(4);
+
+                Country foundCountry = new Country(countryName, continentName, countryCode, pop, revenue, area);
+                countryList.Add(foundCountry);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+
+            return countryList;
+        }
     }
 }

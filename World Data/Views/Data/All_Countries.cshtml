@@ -1,3 +1,22 @@
 ﻿@{
     Layout = "_Layout";
 }
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="jumbotron">
+            <h1>Countries List</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <a href="/" type="button" class="btn btn-primary">Back to Homepage</a>
+        @{ 
+            foreach(var country in Model)
+            {
+                <p>@country.GetName()</p>
+            }
+        }
+    </div>
+</div>

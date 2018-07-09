@@ -28,5 +28,11 @@ namespace World_Data.Controllers
             return View("Results", newCountry);
         }
 
+        [HttpGet("/all_countries")]
+        public ActionResult All_Countries()
+        {
+            return View(countryList);
+        }
+
     }
 }
