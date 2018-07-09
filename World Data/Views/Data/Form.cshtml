@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <form id="taskForm" action="/tasks">
+            <div class="form-group">
+                <label for="taskName">Enter a name for your task</label>
+                <input type="text" id="taskName" name="taskName" />
+            </div>
+            <div class="form-group">
+                <label for="taskDescription">Enter a description for your task</label>
+                <input type="text" id="taskDescription" name="taskDescription" />
+            </div>
+            <button class="btn btn-primary" type="submit">Add</button>
+        </form>
+    </div>
+</div>
